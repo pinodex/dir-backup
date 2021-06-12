@@ -67,6 +67,7 @@ upload_file () {
 
   "$GDRIVE_CMD" -c "$GDRIVE_CONFIG_DIR" upload \
     -p "$target_directory_id" \
+    --no-progress \
     "$source_file"
 }
 
@@ -82,7 +83,10 @@ BACKUP_FILE=`get_target_file`
   upload_file "$BACKUP_FILE" "$GOOGLE_DRIVE_TARGET_DIRECTORY_ID"
 
   rm "$BACKUP_FILE"
+
+  echo ""
+
+  get_drive_info
 } 2>&1 | tee "$LOG_FILE"
 
 send_discord_message "$(jq -Rs . < "$LOG_FILE" | cut -c 2- | rev | cut -c 2- | rev)"
-send_discord_message "$(get_drive_info | jq -Rs . | cut -c 2- | rev | cut -c 2- | rev)"
