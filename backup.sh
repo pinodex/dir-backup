@@ -9,11 +9,15 @@ GDRIVE_CONFIG_DIR="${GDRIVE_CONFIG_DIR:-$HOME/.gdrive}"
 if [ ! -f "$CONFIG_FILE" ]
 then
   echo "config.json cannot be found."
+
+  exit 1
 fi
 
 if [ ! -d "$GDRIVE_CONFIG_DIR" ]
 then
   echo "gdrive not configured."
+
+  exit 1
 fi
 
 CONFIG=`cat "$CONFIG_FILE"`
